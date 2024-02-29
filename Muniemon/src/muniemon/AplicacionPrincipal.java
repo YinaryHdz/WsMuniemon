@@ -14,25 +14,42 @@ public class AplicacionPrincipal {
 	public static void menuYSeleccion() {
 		Scanner sc = new Scanner(System.in);
 		int opcion=0;
-		Muniemon muniemon = null;
+		Muniemon primerMuniemon = null;
+		Muniemon segundoMuniemon = null;
 		do {
 			System.out.println("==========Menu==========");
-			System.out.println("1. Dar de alta Muniemon");
-			System.out.println("2. Mostrar muniemon");
-			System.out.println("3. Salir del programa");
+			System.out.println("1. Dar de alta primer Muniemon");
+			System.out.println("2. Dar de alta segundo Muniemon");
+			System.out.println("3. Mostrar primer Muniemon");
+			System.out.println("4. Mostrar segundo Muniemon");
+			System.out.println("5. Atacar primer Muniemon a segundo Muniemon");
+			System.out.println("6. Atacar segundo Muniemon a primer Muniemon");
+			System.out.println("7. Salir del programa");
 			System.out.println("Por favor, seleccione una opcion");
 			opcion= sc.nextInt();
 			switch(opcion) {
 			case 1:
-				muniemon = altaMuniemon(sc);
+				primerMuniemon = altaMuniemon(sc);
 				break;
 			case 2:
-				mostrarMuniemon(muniemon);
+				segundoMuniemon = altaMuniemon(sc);
 				break;
 			case 3:
+				mostrarMuniemon(primerMuniemon);
+				break;
+			case 4:
+				mostrarMuniemon(segundoMuniemon);
+				break;
+			case 5:
+				primerMuniemon.atacar(segundoMuniemon);
+				break;
+			case 6:
+				segundoMuniemon.atacar(primerMuniemon);
+				break;
+			case 7:
 				System.out.println("Ha seleccionado la opcion de salir del programa");
 				}
-		}while (opcion != 3);
+		}while (opcion != 7);
 		
 		
 	}
@@ -45,9 +62,6 @@ public class AplicacionPrincipal {
 		String nombre = sc.nextLine();
 		System.out.println("Introduce la vida del Muniemon");
 		int vida = sc.nextInt();
-		if (vida <0) {
-			System.out.println("Su Muniemon esta muerto");
-		}
 		System.out.println("Introduce el ataque del Muniemon");
 		int ataque = sc.nextInt();
 		System.out.println("Introduce la defensa del Muniemom");
@@ -64,6 +78,7 @@ public class AplicacionPrincipal {
 		System.out.println("Felicidades, ya ha creado su Muniemon");
 		return muniemon;
 	}
+	
 	
 	public static void mostrarMuniemon(Muniemon muniemon) {
 		if (muniemon != null) {

@@ -52,4 +52,24 @@ public class Muniemon {
 		this.tipoMuniemon = tipoMuniemon;
 	}
 	
+	public void atacar (Muniemon muniemon) {
+		System.out.println( this.getNombre() + " ataca a: " +muniemon.nombre);
+		if (muniemon.vida<0) {
+			System.out.println("No se puede atacar porque "+muniemon.nombre + " esta muerto");
+		}else {
+			int vidaFinal = 0;
+			int danio = this.getAtaque() - muniemon.defensa;
+			if(danio >0) {
+				System.out.println("Han atacado a " +muniemon.nombre + ", el danio es de: "+danio);
+				vidaFinal = muniemon.vida - danio;
+				muniemon.vida = vidaFinal;
+				if(muniemon.vida < 0) {
+					System.out.println(muniemon.nombre + " Ha sido derrotado");
+				}else {
+					System.out.println("La vida de " + muniemon.nombre + " es de: " + muniemon.vida);
+				}
+				
+			}	
+		}
+	}
 }
