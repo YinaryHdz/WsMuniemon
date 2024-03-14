@@ -5,20 +5,24 @@ public class Muniemon {
 	private int vida;
 	private int ataque;
 	private int defensa;
-	private TipoMuniemon tipoMuniemon;
+	private TipoMuniemon tipoMuniemon;    
+	private int velocidad;
+	
+	
 	@Override
 	public String toString() {
 		return "Muniemon [nombre=" + nombre + ", vida=" + vida + ", ataque=" + ataque + ", defensa=" + defensa
-				+ ", tipoMuniemon=" + tipoMuniemon + "]";
+				+ ", tipoMuniemon=" + tipoMuniemon + ", velocidsad=" + velocidad + "]";
 	}
-	
-	public Muniemon(String nombre, int vida, int ataque, int defensa, TipoMuniemon tipoMuniemon) {
+
+	public Muniemon(String nombre, int vida, int ataque, int defensa, TipoMuniemon tipoMuniemon, int velocidad) {
 		super();
 		this.nombre = nombre;
 		this.vida = vida;
 		this.ataque = ataque;
 		this.defensa = defensa;
 		this.tipoMuniemon = tipoMuniemon;
+		this.velocidad = velocidad;
 	}
 
 	public String getNombre() {
@@ -51,12 +55,18 @@ public class Muniemon {
 	public void setTipoMuniemon(TipoMuniemon tipoMuniemon) {
 		this.tipoMuniemon = tipoMuniemon;
 	}
-	
+	public int getVelocidad() {
+		return velocidad;
+	}
+	public void setVelocidad(int velocidad) {
+		this.velocidad = velocidad;
+	}
+
 	public void atacar (Muniemon muniemon) {
 		System.out.println( this.getNombre() + " ataca a: " +muniemon.nombre);
-		if (muniemon.vida<0) {
-			System.out.println("No se puede atacar porque "+muniemon.nombre + " esta muerto");
-		}else {
+		
+			
+		if (muniemon.vida>0){
 			int vidaFinal = 0;
 			int danio = this.getAtaque() - muniemon.defensa;
 			if(danio >0) {
@@ -65,11 +75,13 @@ public class Muniemon {
 				muniemon.vida = vidaFinal;
 				if(muniemon.vida < 0) {
 					System.out.println(muniemon.nombre + " Ha sido derrotado");
+					
 				}else {
 					System.out.println("La vida de " + muniemon.nombre + " es de: " + muniemon.vida);
-				}
-				
+				}	
 			}	
+		}else {
+			System.out.println("No se puede atacar porque "+muniemon.nombre + " esta muerto");
 		}
 	}
 }

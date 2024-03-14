@@ -1,5 +1,6 @@
 package muniemon;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class AplicacionPrincipal {
@@ -8,48 +9,47 @@ public class AplicacionPrincipal {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		menuYSeleccion();
-
+		
 	}
 	
 	public static void menuYSeleccion() {
 		Scanner sc = new Scanner(System.in);
 		int opcion=0;
-		Muniemon primerMuniemon = null;
-		Muniemon segundoMuniemon = null;
+		Muniemon muniemon = null;
+		ArrayList<Muniemon> listaMuniemon = new ArrayList<Muniemon>();
+
 		do {
+			System.out.println("Seleccione la opcion que desee en el siguiente menú");
 			System.out.println("==========Menu==========");
-			System.out.println("1. Dar de alta primer Muniemon");
-			System.out.println("2. Dar de alta segundo Muniemon");
-			System.out.println("3. Mostrar primer Muniemon");
-			System.out.println("4. Mostrar segundo Muniemon");
-			System.out.println("5. Atacar primer Muniemon a segundo Muniemon");
-			System.out.println("6. Atacar segundo Muniemon a primer Muniemon");
-			System.out.println("7. Salir del programa");
+			System.out.println("1. Dar de alta Muniemon");
+			System.out.println("2. Mostrar Muniemon");
+			System.out.println("3. Empezar combate");
+			System.out.println("4. Salir del programa");
 			System.out.println("Por favor, seleccione una opcion");
 			opcion= sc.nextInt();
 			switch(opcion) {
 			case 1:
-				primerMuniemon = altaMuniemon(sc);
+				if (listaMuniemon.size() != 2) {
+					muniemon = altaMuniemon(sc);
+					listaMuniemon.add(muniemon);
+				}else{
+					System.out.println("Solo se permite ingresar dos muniemones");
+				}
 				break;
 			case 2:
-				segundoMuniemon = altaMuniemon(sc);
+				for(Muniemon m : listaMuniemon) {
+					mostrarMuniemon(m);
+				}
 				break;
 			case 3:
-				mostrarMuniemon(primerMuniemon);
+				Combate combate = new Combate(listaMuniemon.get(0),listaMuniemon.get(1));
+				combate.empezarCombate();
 				break;
 			case 4:
-				mostrarMuniemon(segundoMuniemon);
-				break;
-			case 5:
-				primerMuniemon.atacar(segundoMuniemon);
-				break;
-			case 6:
-				segundoMuniemon.atacar(primerMuniemon);
-				break;
-			case 7:
 				System.out.println("Ha seleccionado la opcion de salir del programa");
+				
 				}
-		}while (opcion != 7);
+		}while (opcion != 4);
 		
 		
 	}
@@ -73,8 +73,10 @@ public class AplicacionPrincipal {
 		int seleccionTipo= sc.nextInt();
 		TipoMuniemon tm = TipoMuniemon.values()[seleccionTipo];
 		System.out.println("Ha seleccionado: " +tm);
+		System.out.println("Introduce la velocidad del Muniemom");
+		int velocidad = sc.nextInt();
 		
-		Muniemon muniemon = new Muniemon(nombre, vida, ataque, defensa, tm);
+		Muniemon muniemon = new Muniemon(nombre, vida, ataque, defensa, tm, velocidad);
 		System.out.println("Felicidades, ya ha creado su Muniemon");
 		return muniemon;
 	}
@@ -87,7 +89,8 @@ public class AplicacionPrincipal {
 			System.out.println("Vida: "+muniemon.getVida());
 			System.out.println("Ataque: "+muniemon.getAtaque());
 			System.out.println("Defensa: "+muniemon.getDefensa());
-			System.out.println("Tipo: "+ muniemon.getTipoMuniemon());	                                                                                                                                                                                                                         
+			System.out.println("Tipo: "+ muniemon.getTipoMuniemon());	
+			System.out.println("Velociad: "+muniemon.getVelocidad());
 		}
 	}
 
