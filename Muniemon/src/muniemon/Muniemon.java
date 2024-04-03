@@ -61,14 +61,43 @@ public class Muniemon {
 	public void setVelocidad(int velocidad) {
 		this.velocidad = velocidad;
 	}
-
+	
+	public double obtenerMultiplicador(TipoMuniemon tipoAtacado) {
+	    switch(tipoMuniemon) {
+	        case PLANTA:
+	            if (tipoAtacado == TipoMuniemon.AGUA) {
+	                return 1.5;
+	            } else if (tipoAtacado == TipoMuniemon.FUEGO) {
+	                return 0.5;
+	            } else {
+	                return 1.0;
+	            }
+	        case FUEGO:
+	            if (tipoAtacado == TipoMuniemon.PLANTA) {
+	                return 1.5;
+	            } else if (tipoAtacado == TipoMuniemon.AGUA) {
+	                return 0.5;
+	            } else {
+	                return 1.0;
+	            }
+	        case AGUA:
+	            if (tipoAtacado == TipoMuniemon.FUEGO) {
+	                return 1.5;
+	            } else if (tipoAtacado == TipoMuniemon.PLANTA) {
+	                return 0.5;
+	            } else {
+	                return 1.0;
+	            }
+	        default:
+	            return 1.0;
+	    }
+	}
 	public void atacar (Muniemon muniemon) {
-		System.out.println( this.getNombre() + " ataca a: " +muniemon.nombre);
-		
-			
+		System.out.println( this.getNombre() + " ataca a: " +muniemon.nombre); 
 		if (muniemon.vida>0){
+			double multiplicador = obtenerMultiplicador(getTipoMuniemon());
 			int vidaFinal = 0;
-			int danio = this.getAtaque() - muniemon.defensa;
+			int danio = (int)(this.getAtaque() * multiplicador)- muniemon.defensa;
 			if(danio >0) {
 				System.out.println("Han atacado a " +muniemon.nombre + ", el danio es de: "+danio);
 				vidaFinal = muniemon.vida - danio;
